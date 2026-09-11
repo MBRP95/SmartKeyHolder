@@ -233,7 +233,7 @@ The project started from a commercially available key holder before modification
 
 ### Microswitch assembly
 
-![Microswitch detail](images/03_internal_wiring_detail.jpg)
+![Microswitch detail](images/03_internal_wiring_detail.png)
 
 ---
 
