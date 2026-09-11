@@ -246,9 +246,9 @@ smart-key-holder/
 │
 ├── images/
 │   ├── original-key-holder.jpg
-│   ├── 01_installed_final.jpg
-│   ├── 02_internal_wiring.jpg
-│   ├── 03_internal_wiring_detail.jpg
+│   ├── 01_installed_final.png
+│   ├── 02_internal_wiring.png
+│   ├── 03_internal_wiring_detail.png
 │
 └── docs/
     └── electrical-diagram.png
