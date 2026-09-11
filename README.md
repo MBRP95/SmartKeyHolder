@@ -225,23 +225,15 @@ The project started from a commercially available key holder before modification
 
 ### Finished device
 
-![Smart key holder](images/01_installed_final.jpg)
-
-### Alarm interface
-
-![Smart key holder with alarm interface](images/02_installed_alarm_screen.jpg)
+![Smart key holder](images/01_installed_final.png)
 
 ### Internal electronics
 
-![Internal wiring](images/03_internal_wiring.jpg)
+![Internal wiring](images/02_internal_wiring.png)
 
 ### Microswitch assembly
 
-![Microswitch detail](images/04_internal_wiring_detail.jpg)
-
-### Finished product
-
-![Finished key holder](images/05_finished_key_holder.jpg)
+![Microswitch detail](images/03_internal_wiring_detail.jpg)
 
 ---
 
@@ -255,10 +247,8 @@ smart-key-holder/
 ├── images/
 │   ├── original-key-holder.jpg
 │   ├── 01_installed_final.jpg
-│   ├── 02_installed_alarm_screen.jpg
-│   ├── 03_internal_wiring.jpg
-│   ├── 04_internal_wiring_detail.jpg
-│   └── 05_finished_key_holder.jpg
+│   ├── 02_internal_wiring.jpg
+│   ├── 03_internal_wiring_detail.jpg
 │
 └── docs/
     └── electrical-diagram.png
@@ -271,13 +261,10 @@ smart-key-holder/
 Possible future iterations could include:
 
 - 3D-printed mechanical components
-- improved hook/microswitch coupling
 - individual key detection
 - status LEDs
+- status audible alarm
 - improved cable management
-- tamper detection
-- more sophisticated Home Assistant automations
-- a dedicated custom PCB
 - a custom enclosure designed specifically for the mechanism
 
 ---
