@@ -4,6 +4,8 @@
 
 > **Hang the key. Arm the alarm. Take the key. Disarm the alarm.**
 
+---
+
 ## 💡 The Problem
 
 This project started from a simple, real-world problem.
@@ -26,11 +28,13 @@ Instead of adding another app or touchscreen, I came up with a simple idea:
 
 ## 🛠️ The Solution
 
-I designed a smart key holder containing four mechanical hooks, each connected to a microswitch.
+I started with a commercially available wall-mounted key holder with a drawer and four double hooks, and modified it to turn the mechanical movement of the hooks into electrical inputs.
+
+Each hook is mechanically coupled to a microswitch.
 
 When a key is placed on a hook, its weight moves the hook downward and activates the corresponding microswitch.
 
-The microswitch then sends a signal to a smart relay, which communicates the state to Home Assistant.
+The microswitches then provide a signal to a smart relay, which communicates the input state to Home Assistant.
 
 The overall process is:
 
@@ -45,10 +49,27 @@ Smart relay detects the contact
  ↓
 Home Assistant
  ↓
-Alarm state changes
+Alarm automation
 ```
 
 The technology remains almost completely invisible to the user.
+
+---
+
+## 🧰 From Off-the-Shelf Product to Smart Device
+
+Rather than designing the enclosure from scratch, I reused an existing consumer product and modified it internally.
+
+The original key holder already provided:
+
+- four double hooks
+- a suitable mechanical structure
+- a removable drawer
+- enough internal space to install the electronics
+
+The modification focuses on adding the sensing mechanism while preserving the original external appearance.
+
+This makes the project a combination of **mechanical adaptation, basic electronics and home automation** rather than simply assembling a set of smart-home components.
 
 ---
 
@@ -56,21 +77,38 @@ The technology remains almost completely invisible to the user.
 
 The key holder contains a removable internal drawer where the electronics and wiring are mounted.
 
-Each hook mechanically activates a microswitch.
+Each hook mechanically activates one microswitch.
 
 The four microswitches are connected in parallel to the relay input:
 
 ```text
-                 ┌── Microswitch 1 ──┐
-                 │                   │
-SW ──────────────┼── Microswitch 2 ──┼──── L (GND)
-                 │                   │
-                 ├── Microswitch 3 ──┤
-                 │                   │
-                 └── Microswitch 4 ──┘
+                    Microswitch 1
+                         │
+SW ──────────────────────┤
+                         │
+                    Microswitch 2
+                         │
+                         ├──────── L (GND)
+                         │
+                    Microswitch 3
+                         │
+                         │
+                    Microswitch 4
+                         │
+                         │
 ```
 
-When any microswitch is activated, **SW is connected to L (GND)** and the relay detects the change of state.
+More precisely, **SW is connected to the common side of the four microswitches**, while their other contacts are connected together and then routed to **L (GND)**.
+
+When a microswitch closes, it connects **SW to L (GND)** and the relay detects the change of state.
+
+> **Important:** SW and L are **not directly connected together**. The connection between them is made through the microswitch contacts.
+
+### Power supply
+
+The relay module is powered by a separate **12 V DC power supply**.
+
+The microswitches are used as simple mechanical contacts in the relay input circuit.
 
 ### Electrical diagram
 
@@ -130,9 +168,9 @@ They also make the system easy to understand and troubleshoot.
 
 ### Why parallel connection?
 
-The system only needs to know whether **at least one key is present**.
+The microswitches are connected in parallel so that the relay input can detect the contact state through a common circuit.
 
-It does not need to identify which specific hook was activated, so connecting the microswitches in parallel keeps the electrical design simple.
+This keeps the electrical design simple and requires only a single input.
 
 ### Why use a smart relay?
 
@@ -140,7 +178,7 @@ Rather than designing a complete wireless device from scratch, I used an existin
 
 This reduces the amount of custom electronics required while keeping the project integrated with the existing smart-home infrastructure.
 
-The prototype uses a SwitchBot relay, but the concept is not dependent on that specific brand. Any compatible smart relay with a suitable input could be used.
+The concept is not dependent on a specific relay brand: any compatible smart relay with a suitable input could be used.
 
 ### Why a physical interface?
 
@@ -160,17 +198,71 @@ For this use case, a physical action that everyone already understands is more e
 | Easy integration | Smart relay + Home Assistant |
 | Maintainability | Removable electronics drawer |
 | Low complexity | Simple parallel wiring |
+| Preserve the original product | Internal modification only |
 
 ---
 
 ## 🔌 Components
 
+- Commercial wall-mounted key holder with drawer
 - 12 V DC power supply
 - Smart relay with a suitable switch input
-- 4 × microswitches
+- 4 × SPDT roller-lever microswitches
 - 4 × mechanical key hooks
-- Key holder enclosure
 - Wiring and connectors
+
+The project deliberately avoids being tied to specific component brands where the brand is not relevant to the design.
+
+---
+
+## 📷 Project Gallery
+
+### Original product
+
+The project started from a commercially available key holder before modification.
+
+![Original key holder](images/original-key-holder.jpg)
+
+### Finished device
+
+![Smart key holder](images/01_installed_final.jpg)
+
+### Alarm interface
+
+![Smart key holder with alarm interface](images/02_installed_alarm_screen.jpg)
+
+### Internal electronics
+
+![Internal wiring](images/03_internal_wiring.jpg)
+
+### Microswitch assembly
+
+![Microswitch detail](images/04_internal_wiring_detail.jpg)
+
+### Finished product
+
+![Finished key holder](images/05_finished_key_holder.jpg)
+
+---
+
+## 📁 Project Structure
+
+```text
+smart-key-holder/
+│
+├── README.md
+│
+├── images/
+│   ├── original-key-holder.jpg
+│   ├── 01_installed_final.jpg
+│   ├── 02_installed_alarm_screen.jpg
+│   ├── 03_internal_wiring.jpg
+│   ├── 04_internal_wiring_detail.jpg
+│   └── 05_finished_key_holder.jpg
+│
+└── docs/
+    └── electrical-diagram.png
+```
 
 ---
 
@@ -179,11 +271,14 @@ For this use case, a physical action that everyone already understands is more e
 Possible future iterations could include:
 
 - 3D-printed mechanical components
+- improved hook/microswitch coupling
+- individual key detection
 - status LEDs
-- status audible alarm
 - improved cable management
+- tamper detection
 - more sophisticated Home Assistant automations
 - a dedicated custom PCB
+- a custom enclosure designed specifically for the mechanism
 
 ---
 
@@ -205,16 +300,10 @@ The interesting part of the project is not just the key holder, but the way a si
 
 ---
 
-## 📷 Gallery
-
-Photos and additional documentation will be added here as the project evolves.
-
-<!-- Add project photos here -->
-
----
-
 ## 📌 Project Status
 
-**Work in progress.**
+**Functional prototype.**
 
-The current version is a functional prototype. Further iterations will focus mainly on improving the mechanical design, documentation and integration with Home Assistant.
+The current version combines the modified mechanical key holder, four microswitches, the relay interface and Home Assistant.
+
+Further iterations will focus mainly on improving the mechanical design, documentation and automation logic.
