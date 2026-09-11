@@ -179,11 +179,9 @@ For this use case, a physical action that everyone already understands is more e
 Possible future iterations could include:
 
 - 3D-printed mechanical components
-- improved hook/microswitch coupling
-- individual key detection
 - status LEDs
+- status audible alarm
 - improved cable management
-- tamper detection
 - more sophisticated Home Assistant automations
 - a dedicated custom PCB
 
